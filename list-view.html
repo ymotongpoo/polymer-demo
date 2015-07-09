@@ -6,51 +6,67 @@
 <dom-module id="list-view">
   <style is="custom-style">
    :host {
-     display: block;
+     @apply(--layout-vertical);
+   }
+
+   .main {
+     @apply(--layout-flex);
+     @apply(--layout-scroll);
+     background-color: var(--main-background-color);
    }
 
    paper-item {
      margin: 0 auto;
-     width: 400px;
+     width: 700px;
+     background-color: var(--paper-item-background-color);
    }
 
    .demo {
-     color: #000000;
+     color: var(--demo-color);
      font-size: 24px;
    }
 
    .desc {
-     color: #333333;
+     color: var(--desc-color);
      font-size: 14px;
    }
   </style>
+
   <template>
-    <paper-header-panel class="flex">
+
+    <paper-header-panel>
       <paper-toolbar>
-        <div class="title">Polymer demo</div>
+        <div>Polymer demo</div>
       </paper-toolbar>
-      <div class="content fit">
-        <template is="dom-repeat" items="{{pages}}">
+      <div class="main content fit">
+
+        <template is="dom-repeat" items="[[pages]]">
+          
           <paper-item on-click="_onItemClick">
-            <paper-item-body two-lines>
-              <div class="demo">{{item.demo}}</div>
-              <div class="desc" secondary>{{item.desc}}</div>
+            <paper-item-body two-line>
+              <div class="demo">[[item.demo]]</div>
+              <div class="desc" secondary>[[item.desc]]</div>
             </paper-item-body>
           </paper-item>
+          
         </template>
+        
       </div>
     </paper-header-panel>
+
   </template>
   <script>
    Polymer({
+     
      is: 'list-view',
+     
      properties: {
        pages : {
          type : Array,
          value: function() {
            return [
              {
-               demo: "property type chekcing", 
+               demo: "property type checking", 
                desc: "check if property handles type cast and type checking based on its declared type",
                path: "property-type"
              }, 
@@ -65,7 +81,7 @@
      },
 
      _onItemClick : function(event) {
-       var data = Polymer.dom(event).rootTarget.modelForElement(event.target);
+       var data = event.model.item;
        window.location = data.path;
      }
    });

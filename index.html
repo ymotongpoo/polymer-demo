@@ -2,17 +2,21 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8"/>
-    <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="bower_components/paper-styles/paper-styles.html">
     <link rel="import" href="elements/app-theme.html">
     <link rel="import" href="list-view.html">
     <title>Polymer demo</title>
     <style is="custom-style">
      list-view {
-       color: #000000;
+       --demo-color: var(--primary-text-color);
+       --desc-color: var(--secondary-text-color);
+       --paper-item-background-color: white;
+       --main-background-color: var(--paper-grey-50);
      }
     </style>
   </head>
   <body class="fullbleed layout vertical">
-    <list-view></list-view>
+    <list-view class="fit"></list-view>
   </body>
 </html>

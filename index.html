@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
+    <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+    <link rel="import" href="bower_components/paper-item/paper-item.html">
+    <title>Polymer demo</title>
+  </head>
+  <body>
+    <paper-header-panel>
+      <paper-toolbar>
+        <div title="Polymer demo"></div>
+      </paper-toolbar>
+      <div class="main fit">
+        <template is="dom-repeat" items="[[pages]]">
+          <paper-item on-click="_onItemClick">
+            <paper-item-body two-lines>
+              <div>[[item.title]]</div>
+              <div secondary>[[item.desc]]</div>
+            </paper-item-body>
+          </paper-item>
+        </template>
+      </div>
+    </paper-header-panel>
+    <script>
+     Polymer({
+       is: 'index',
+
+       properties: {
+         pages : {
+           type : Object,
+           value: function() {
+             return [
+               {
+                 title: "property type chekcing", 
+                 desc: "check if property handles type cast and type checking based on its declared type",
+                 path: "property-type"
+               }
+             ];
+           }
+         }
+       },
+
+       _onItemClick : function(event) {
+         var data = Polymer.dom(event).rootTarget.modelForElement(event.target);
+         window.location = data.path;
+       }
+     });
+    </script>
+  </body>
+</html>

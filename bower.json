@@ -1,0 +1,27 @@
+{
+  "name": "polymer-demo",
+  "version": "0.0.1",
+  "homepage": "https://github.com/ymotongpoo/polymer-demo",
+  "authors": [
+    "ymotongpoo"
+  ],
+  "description": "my Polymer demo page",
+  "main": "index.html",
+  "keywords": [
+    "polymer"
+  ],
+  "license": "APL2",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "~1.0.5",
+    "paper-header-panel": "PolymerElements/paper-header-panel#~1.0.2",
+    "paper-toolbar": "PolymerElements/paper-toolbar#~1.0.2",
+    "paper-item": "PolymerElements/paper-item#~1.0.1"
+  }
+}

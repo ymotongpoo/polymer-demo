@@ -1,0 +1,73 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="bower_components/paper-item/paper-item.html">
+<link rel="import" href="bower_components/paper-item/paper-item-body.html">
+<dom-module id="list-view">
+  <style is="custom-style">
+   :host {
+     display: block;
+   }
+
+   paper-item {
+     margin: 0 auto;
+     width: 400px;
+   }
+
+   .demo {
+     color: #000000;
+     font-size: 24px;
+   }
+
+   .desc {
+     color: #333333;
+     font-size: 14px;
+   }
+  </style>
+  <template>
+    <paper-header-panel class="flex">
+      <paper-toolbar>
+        <div class="title">Polymer demo</div>
+      </paper-toolbar>
+      <div class="content fit">
+        <template is="dom-repeat" items="{{pages}}">
+          <paper-item on-click="_onItemClick">
+            <paper-item-body two-lines>
+              <div class="demo">{{item.demo}}</div>
+              <div class="desc" secondary>{{item.desc}}</div>
+            </paper-item-body>
+          </paper-item>
+        </template>
+      </div>
+    </paper-header-panel>
+  </template>
+  <script>
+   Polymer({
+     is: 'list-view',
+     properties: {
+       pages : {
+         type : Array,
+         value: function() {
+           return [
+             {
+               demo: "property type chekcing", 
+               desc: "check if property handles type cast and type checking based on its declared type",
+               path: "property-type"
+             }, 
+             {
+               demo: "xxxxxxxxx",
+               desc: "xxxxxxxxx",
+               path: "foo"
+             }
+           ];
+         }
+       }
+     },
+
+     _onItemClick : function(event) {
+       var data = Polymer.dom(event).rootTarget.modelForElement(event.target);
+       window.location = data.path;
+     }
+   });
+  </script>
+</dom-module>

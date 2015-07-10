@@ -1,0 +1,114 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-styles/paper-styles.html">
+<link rel="stylesheet" href="../elements/app-theme.html">
+<dom-module id="input-demo">
+  <style>
+   :host {
+     width: 100%;
+     height: 100%;
+     --paper-input-container-focus-color: var(--light-primary-color);
+   }
+
+   .content {
+     border: 1px solid var(--devider-color);
+   }
+
+   .result {
+     margin: 8px;
+     padding: 4px;
+     width: 100%;
+     color: var(--primary-text-color);
+   }
+
+   .result[isvalid="false"] {
+     color: var(--paper-red-500);
+   }
+
+   paper-input {
+     margin: 8px;
+   }
+  </style>
+  
+  <template>
+    <div class="content">
+      <p id="foo_result" class="result">value of 'foo' is <span>[[foo]]</span>. type of 'foo' is: <span>[[type_of_foo]]</span></p>
+      <p id="bar_result" class="result">value of 'bar' is <span>[[bar]]</span>. type of 'bar' is: <span>[[type_of_bar]]</span></p>
+    </div>
+    <paper-input label="bind value of foo with $="
+                 auto-validate
+                 pattern="[0-9\.]*"
+                 error-message="only digits and period"
+                 value$={{foo}}></paper-input>
+
+    <paper-input label="bind value of bar with ="
+                 auto-validate
+                 pattern="[0-9\.]*"
+                 error-message="only digits and period"
+                 value={{bar}}></paper-input>
+  </template>
+  
+  <script>
+   Polymer({
+     is: 'input-demo',
+
+     listeners: {
+       'foo-changed': '_fooChanged',
+       'bar-changed': '_barChanged'
+     },
+
+     properties: {
+       foo: {
+         type: Number,
+         notify: true,
+         value: function() {
+           return 0;
+         }
+       },
+       type_of_foo: {
+         type: Object,
+         value: function() {
+           return typeof this.foo;
+         }
+       },
+       bar: {
+         type: Number,
+         notify: true,
+         value: function() {
+           return 0;
+         }
+       },
+       type_of_bar: {
+         type: Object,
+         value: function() {
+           return typeof this.foo;
+         }
+       }
+     },
+
+     ready: function() {
+       this.foo = 0;
+       this.bar = 0;
+       this.$.result.setAttribute('isvalid', true);
+     },
+
+     _fooChanged: function() {
+       this.type_of_foo = typeof this.foo;
+       if (this.type_of_foo !== Number || this.type_of_foo !== "number") {
+         this.$.foo_result.setAttribute('isvalid', false);
+       } else {
+         this.$.foo_result.setAttribute('isvalid', true);
+       }
+     }
+
+     _barChanged: function() {
+       this.type_of_bar = typeof this.bar;
+       if (this.type_of_bar !== Number || this.type_of_bar !== "number") {
+         this.$.bar_result.setAttribute('isvalid', false);
+       } else {
+         this.$.bar_result.setAttribute('isvalid', true);
+       }
+     }
+   });
+  </script>
+</dom-module>

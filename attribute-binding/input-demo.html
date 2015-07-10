@@ -32,7 +32,7 @@
   
   <template>
     <div class="content">
-      <p id="foo_result" class="result">value of 'foo' is <span>[[foo]]</span>. type of 'foo' is: <span>[[type_of_foo]]</span></p>
+      <p id="foo_result" class="result">value of 'foo' is <span>{{foo}}</span>. type of 'foo' is: <span>[[type_of_foo]]</span></p>
       <p id="bar_result" class="result">value of 'bar' is <span>[[bar]]</span>. type of 'bar' is: <span>[[type_of_bar]]</span></p>
     </div>
     <paper-input label="bind value of foo with $="
@@ -89,19 +89,22 @@
      ready: function() {
        this.foo = 0;
        this.bar = 0;
-       this.$.result.setAttribute('isvalid', true);
+       this.$.foo_result.setAttribute('isvalid', true);
+       this.$.bar_result.setAttribute('isvalid', true);
      },
 
      _fooChanged: function() {
+       console.log(this.foo);
        this.type_of_foo = typeof this.foo;
        if (this.type_of_foo !== Number || this.type_of_foo !== "number") {
          this.$.foo_result.setAttribute('isvalid', false);
        } else {
          this.$.foo_result.setAttribute('isvalid', true);
        }
-     }
+     },
 
      _barChanged: function() {
+       console.log(this.bar);
        this.type_of_bar = typeof this.bar;
        if (this.type_of_bar !== Number || this.type_of_bar !== "number") {
          this.$.bar_result.setAttribute('isvalid', false);

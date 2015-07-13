@@ -61,9 +61,8 @@
        foo: {
          type: Number,
          notify: true,
-         value: function() {
-           return 0;
-         }
+         observer: '_fooChanged',
+         value: 0
        },
        type_of_foo: {
          type: Object,
@@ -74,21 +73,17 @@
        bar: {
          type: Number,
          notify: true,
-         value: function() {
-           return 0;
-         }
+         value: 0
        },
        type_of_bar: {
          type: Object,
          value: function() {
-           return typeof this.foo;
+           return typeof this.bar;
          }
        }
      },
 
      ready: function() {
-       this.foo = 0;
-       this.bar = 0;
        this.$.foo_result.setAttribute('isvalid', true);
        this.$.bar_result.setAttribute('isvalid', true);
      },

@@ -14,4 +14,9 @@
   <body unresolved class="fullbleed">
     <input-demo></input-demo>
   </body>
+  <script>
+   document.addEventListener('foo-changed', function(event) {
+     console.log(event.detail);
+   });
+  </script>
 </html>

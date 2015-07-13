@@ -1,0 +1,59 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+
+<dom-module id="fab-layout">
+  <style>
+   :host {
+     position: relative;
+     width: 100%;
+     height: 100%;
+   }
+
+   paper-fab {
+     position: fixed;
+     right: 100px;
+     bottom: 100px;
+   }
+  </style>
+  <template>
+    <template is="dom-repeat" items="{{data}}">
+      <paper-item>
+        <paper-item-body two-line>
+          <p>{{item.title}}</p>
+          <p secondary>{{item.date}}</p>
+        </paper-item-body>
+      </paper-item>
+    </template>
+    <paper-fab icon="add"></paper-fab>
+  </template>
+  <script>
+   Polymer({
+     is: 'fab-layout',
+
+     properties: {
+       data: {
+         type: Array,
+         value: function() {
+           return [
+             {title: "foo", date: "2015-07-03"},
+             {title: "bar", date: "2015-07-03"},
+             {title: "buz", date: "2015-07-03"},
+             {title: "foo2", date: "2015-07-04"},
+             {title: "bar2", date: "2015-07-04"},
+             {title: "buz2", date: "2015-07-04"},
+             {title: "foo3", date: "2015-07-05"},
+             {title: "bar3", date: "2015-07-05"},
+             {title: "buz3", date: "2015-07-05"},
+             {title: "foo4", date: "2015-07-06"},
+             {title: "bar4", date: "2015-07-06"},
+             {title: "buz4", date: "2015-07-06"}
+           ]
+         }
+       }
+     }
+   });
+  </script>
+</dom-module>

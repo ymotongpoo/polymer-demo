@@ -6,7 +6,7 @@
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <dom-module id="fab-layout">
-  <style>
+  <style is="custom-style">
    :host {
      position: relative;
      width: 100%;
@@ -19,10 +19,21 @@
      height: 100%;
    }
 
+   paper-toolbar {
+     --paper-toolbar-background: var(--x-default-primary-color, --default-primary-color);
+   }
+
    paper-fab {
      position: fixed;
      right: 100px;
      bottom: 100px;
+     --paper-fab-background: var(--x-accent-color, --accent-color);
+   }
+
+   paper-item {
+     --paper-item {
+       color: var(--dark-primary-color);
+     }
    }
   </style>
   <template>
@@ -34,8 +45,8 @@
         <template is="dom-repeat" items="{{data}}">
           <paper-item>
             <paper-item-body two-line>
-              <p>{{item.title}}</p>
-              <p secondary>{{item.date}}</p>
+              <div>{{item.title}}</div>
+              <div secondary>{{item.date}}</div>
             </paper-item-body>
           </paper-item>
         </template>

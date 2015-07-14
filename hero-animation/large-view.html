@@ -1,0 +1,69 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<dom-module id="large-view">
+  <style>
+   :host {
+     display: block;
+     width: 100%;
+     height: 100%;
+   }
+
+   #page {
+     display: block;
+     width: 500px;
+     height: 300px;
+     color: red;
+     top: 0px;
+     left: 0px;
+     right: 0px;
+     bottom: 0px;
+     margin: auto;
+     border: 1px solid black;
+   }
+  </style>
+  <template>
+    <paper-material id="page" on-tap="_onTap">
+      <div>{{title}}</div>
+      <div>{{content}}</div>
+    </paper-material>
+  </template>
+  <script>
+   Polymer({
+     is: 'large-view',
+     listeners: {
+       'tap': '_onTap'
+     },
+     properties: {
+       title: {
+         type: String,
+         value: ""
+       },
+       content: {
+         type: String,
+         value: ""
+       },
+       animationConfig: {
+         value: function() {
+           return {
+             'entry': {
+               name: 'hero-animation',
+               id: 'hero',
+               toPage: this
+             }
+           }
+         }
+       }
+     },
+     sharedElements: {
+       value: function() {
+         return {
+           'hero': this.$.page
+         }
+       }
+     },
+     _onTap: function(event) {
+       console.log(event.target);
+       this.fire('close');
+     }
+   });
+  </script>
+</dom-module>

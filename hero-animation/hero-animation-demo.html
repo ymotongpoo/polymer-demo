@@ -1,0 +1,32 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animations.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animated-pages.html">
+<link rel="import" href="list-view.html">
+<link rel="import" href="large-view.html">
+<dom-module id="hero-animation-demo">
+  <style>
+  </style>
+  <template>
+    <neon-animated-pages id="pages" selected="0">
+      <list-view></list-view>
+      <large-view id="large" on-close="_onClose"></large-view>
+    </neon-animated-pages>
+  </template>
+  <script>
+   Polymer({
+     is: 'hero-animation-demo',
+     listeners: {
+       'item-click': '_itemClicked'
+     },
+     _itemClicked: function(event) {
+       console.log(event.detail.item)
+       this.$.large.title = event.detail.item.title;
+       this.$.large.content = event.detail.item.content;
+       this.$.pages.selected = 1;
+     },
+     _onClose: function(event) {
+       this.$.pages.selected = 0;
+     }
+   });
+  </script>
+</dom-module>

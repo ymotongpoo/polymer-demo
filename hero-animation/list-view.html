@@ -18,7 +18,7 @@
      width: 500px;
      height: 60px;
      margin: 8px auto;
-     
+     background-color: white;
    }
   </style>
   <template>
@@ -55,6 +55,7 @@
    Polymer({
      is: 'list-view',
      behaviors: [
+       Polymer.NeonAnimatableBehavior,
        Polymer.NeonSharedElementAnimationBehavior
      ],
      listeners: {
@@ -66,13 +67,17 @@
          value: _defaultValue()
        },
        animationConfig: {
+         type: Object,
          value: function() {
            return {
-             'exit': {
+             'exit': [{
                name: 'hero-animation',
                id: 'hero',
                fromPage: this
-             }
+             },{
+               name: 'fade-out-animation',
+               node: this
+             }]
            }
          }
        }
@@ -87,7 +92,7 @@
        }
        var model = this.$.list.modelForElement(Polymer.dom(event).rootTarget);
        this.fire('item-click', {
-         'item': model.item
+         item: model.item
        })
      },
    });

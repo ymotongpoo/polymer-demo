@@ -1,5 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animation.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animations.html">
 <dom-module id="large-view">
   <style>
    :host {
@@ -8,20 +10,20 @@
      height: 100%;
    }
 
-   #page {
+   #foo {
      display: block;
      width: 500px;
      height: 300px;
-     color: red;
-     top: 0px;
-     left: 0px;
-     right: 0px;
-     bottom: 0px;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
      margin: auto;
+     background-color: white;
    }
   </style>
   <template>
-    <paper-material id="page" on-tap="_onTap" elevation="1">
+    <paper-material id="foo" on-tap="_onTap" elevation="1">
       <div>{{title}}</div>
       <div>{{content}}</div>
     </paper-material>
@@ -29,6 +31,11 @@
   <script>
    Polymer({
      is: 'large-view',
+     behaviors: [
+       Polymer.NeonAnimatableBehavior,
+       Polymer.NeonSharedElementAnimationBehavior,
+       Polymer.NeonAnimationRunnerBehavior
+     ],
      listeners: {
        'tap': '_onTap'
      },
@@ -48,17 +55,24 @@
                name: 'hero-animation',
                id: 'hero',
                toPage: this
+             },
+             'exit': {
+               name: 'scale-down-animation',
+               node: this
              }
+           }
+         }
+       },
+       sharedElements: {
+         value: function() {
+           return {
+             'hero': this.$.foo
            }
          }
        }
      },
-     sharedElements: {
-       value: function() {
-         return {
-           'hero': this.$.page
-         }
-       }
+     animate: function() {
+       this.playAnimation();
      },
      _onTap: function(event) {
        console.log(event.target);

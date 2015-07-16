@@ -1,0 +1,74 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<dom-module id="zipcode-auto-complete">
+  <style>
+   paper-material {
+     padding: 16px;
+   }
+  </style>
+  <template>
+    <iron-ajax id="ajax"
+               method="GET"
+               url$="[[url]]"
+               handle-as="json"
+               on-response="_handleResponse"></iron-ajax>
+    <paper-material>
+      <paper-input id="zipcode"
+                   label="zipcode"
+                   pattern="^[0-9]{3}-?[0-9]{4}$"
+                   error-message="valid pattern is xxx-xxxx"
+                   auto-validate
+                   value="{{zipcode}}"></paper-input>
+      <paper-input label="prefecture"
+                   value="{{prefecture}}"></paper-input>
+      <paper-input label="locality"
+                   value="{{locality}}"></paper-input>
+      <paper-input label="address1"
+                   value="{{address1}}"></paper-input>
+    </paper-material>
+  </template>
+  <script>
+   Polymer({
+     is: 'zipcode-auto-complete',
+     listeners: {
+       'zipcode-changed': '_onZipcodeChanged'
+     },
+     properties: {
+       zipcode: {
+         type: String,
+         value: "000-0000"
+       },
+       prefecture: {
+         type: String,
+         value: "",
+       },
+       locality: {
+         type: String,
+         value: ""
+       },
+       address1: {
+         type: String,
+         value: ""
+       },
+       url: {
+         type: String,
+         value: ""
+       }
+     },
+     _onZipcodeChanged: function(event) {
+       console.log(this.zipcode);
+       if (this.$.zipcode.invalid) {
+         return
+       }
+       this.url = "http://maps.googleapis.com/maps/api/geocode/json?address=" + this.zipcode + "&language=ja";
+       this.$.ajax.generateRequest();
+     },
+     _handleResponse: function(request) {
+       console.log(request);
+       console.log(request.detail);
+     }
+   });
+  </script>
+</dom-module>

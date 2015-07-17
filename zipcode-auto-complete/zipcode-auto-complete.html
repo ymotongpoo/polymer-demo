@@ -5,8 +5,14 @@
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <dom-module id="zipcode-auto-complete">
   <style>
+   :host {
+     display: block;
+     background-color: white;
+   }
+   
    paper-material {
      padding: 16px;
+     max-width: 50%
    }
   </style>
   <template>
@@ -25,10 +31,10 @@
                    value="{{zipcode}}"></paper-input>
       <paper-input label="prefecture"
                    value="{{prefecture}}"></paper-input>
-      <paper-input label="locality"
-                   value="{{locality}}"></paper-input>
-      <paper-input label="address1"
-                   value="{{address1}}"></paper-input>
+      <paper-input label="city"
+                   value="{{city}}"></paper-input>
+      <paper-input label="section"
+                   value="{{section}}"></paper-input>
     </paper-material>
   </template>
   <script>
@@ -43,11 +49,11 @@
          type: String,
          value: "",
        },
-       locality: {
+       city: {
          type: String,
          value: ""
        },
-       address1: {
+       section: {
          type: String,
          value: ""
        },
@@ -57,7 +63,6 @@
        }
      },
      _complete: function(event) {
-       console.log(this.zipcode, this.$.zipcode.invalid);
        if (this.$.zipcode.invalid) {
          return
        }
@@ -67,8 +72,8 @@
      _handleResponse: function(request) {
        var data = request.detail.response.results[0];
        this.prefecture = data.address_components[3].long_name;
-       this.locality = data.address_components[2].long_name;
-       this.address1 = data.address_components[1].long_name;
+       this.city = data.address_components[2].long_name;
+       this.section = data.address_components[1].long_name;
      }
    });
   </script>

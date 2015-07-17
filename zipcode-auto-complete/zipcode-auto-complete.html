@@ -1,5 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/iron-a11y-keys/iron-a11y-keys.html">
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <dom-module id="zipcode-auto-complete">
@@ -14,6 +15,7 @@
                url$="[[url]]"
                handle-as="json"
                on-response="_handleResponse"></iron-ajax>
+    <iron-a11y-keys target="{{this}}" keys="enter" on-keys-pressed="_complete"></iron-a11y-keys>
     <paper-material>
       <paper-input id="zipcode"
                    label="zipcode"
@@ -32,9 +34,6 @@
   <script>
    Polymer({
      is: 'zipcode-auto-complete',
-     listeners: {
-       'zipcode-changed': '_onZipcodeChanged'
-     },
      properties: {
        zipcode: {
          type: String,
@@ -57,8 +56,8 @@
          value: ""
        }
      },
-     _onZipcodeChanged: function(event) {
-       console.log(this.zipcode);
+     _complete: function(event) {
+       console.log(this.zipcode, this.$.zipcode.invalid);
        if (this.$.zipcode.invalid) {
          return
        }
@@ -66,8 +65,10 @@
        this.$.ajax.generateRequest();
      },
      _handleResponse: function(request) {
-       console.log(request);
-       console.log(request.detail);
+       var data = request.detail.response.results[0];
+       this.prefecture = data.address_components[3].long_name;
+       this.locality = data.address_components[2].long_name;
+       this.address1 = data.address_components[1].long_name;
      }
    });
   </script>
